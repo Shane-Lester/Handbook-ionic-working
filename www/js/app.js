@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','starter.notestore','starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers','starter.notestore'])
 
-.run(function($ionicPlatform,$rootScope,$localstorage) {
+.run(function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,20 +20,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.notestore','s
       StatusBar.styleDefault();
     }
 
-    if(!$localstorage.getObject('settings').clinical){
-       console.log('no settings stored');
-       $localstorage.setObject("settings",{
-            clinical:"js/clinical.json",
-            department:"js/clinical.json"
-    });
-    
-       }
-      else{
-          console.log("found settings");
-          var storClin= $localstorage.getObject("settings");
-          console.log(storClin);
-          
-      }
   });
 })
 
@@ -43,10 +29,9 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.notestore','s
     .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    templateUrl: 'templates/menu.html'
   })
-  
+
     .state('app.home', {
       url: '/home',
       views: {
@@ -56,7 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.notestore','s
         }
       }
     })
-  
+
   .state('app.clinical',{
         url:'/clinical',
         views:{
@@ -66,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.notestore','s
             }
         }
     })
-  
+
   .state('app.detail',{
         url:'/clinical/:aId',
         views:{
@@ -76,19 +61,19 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.notestore','s
             }
         }
     })
-  
+
       .state('app.department', {
         url: '/department',
         views: {
           'handbook': {
             templateUrl: 'templates/department.html',
-              controller: 'ListController'  
+              controller: 'ListController'
           }
         }
       })
 
 
-  
+
       .state('app.info',{
         url:'/department/:aId',
         views:{
@@ -98,47 +83,37 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.notestore','s
             }
         }
     })
-  
+
     .state('app.todolist', {
       url: '/todo',
       views: {
         'handbook': {
           templateUrl: 'templates/todolist.html',
-          controller: 'TodoListController' 
+          controller: 'TodoListController'
         }
       }
     })
-  
+
     .state('app.editTodo', {
       url: '/edit/:noteId',
       views: {
         'handbook': {
           templateUrl: 'templates/editTodo.html',
-            controller: 'EditListController' 
+            controller: 'EditListController'
         }
       }
-    })  
-  
+    })
+
       .state('app.addTodo', {
       url: '/add',
       views: {
         'handbook': {
           templateUrl: 'templates/editTodo.html',
-            controller: 'AddListController' 
-        }
-      }
-    })  
-  
-    .state('app.settings', {
-      url: '/settings',
-      views: {
-        'handbook': {
-          templateUrl: 'templates/settings.html',
-          controller: 'SettingsController' 
+            controller: 'AddListController'
         }
       }
     })
-  
+
       .state('app.about', {
       url: '/about',
       views: {
@@ -148,9 +123,9 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.notestore','s
         }
       }
     })
-  
-  
-  
+
+
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
